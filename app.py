@@ -251,6 +251,19 @@ tema_btn = ctk.CTkButton(
 )
 tema_btn.pack(anchor="e")
 
+language_menu = ctk.CTkOptionMenu(
+    controls_container,
+    values=[t("language_pt"), t("language_en")],
+    width=70,
+    height=26,
+    corner_radius=10,
+    fg_color=ACCENT,
+    button_color=ACCENT_HOVER,
+    button_hover_color="#168ea0",
+    font=("Arial", 11)
+)
+language_menu.pack(anchor="e", pady=(6, 0))
+
 
 main_card = ctk.CTkFrame(app, corner_radius=20)
 main_card.pack(fill="both", expand=True, padx=20, pady=(0, 20))
@@ -489,7 +502,7 @@ def atualizar_progresso(valor):
 
 
 action_row = ctk.CTkFrame(main_card, fg_color="transparent")
-action_row.pack(fill="x", padx=22, pady=(0, 12))
+action_row.pack(fill="x", padx=22, pady=(0, 20))
 
 botao = ctk.CTkButton(
     action_row,
@@ -504,23 +517,6 @@ botao = ctk.CTkButton(
     font=("Arial", 15, "bold")
 )
 botao.pack()
-
-
-bottom_bar = ctk.CTkFrame(main_card, fg_color="transparent")
-bottom_bar.pack(fill="x", padx=22, pady=(0, 18))
-
-language_menu = ctk.CTkOptionMenu(
-    bottom_bar,
-    values=[t("language_pt"), t("language_en")],
-    width=70,
-    height=28,
-    corner_radius=10,
-    fg_color=ACCENT,
-    button_color=ACCENT_HOVER,
-    button_hover_color="#168ea0",
-    font=("Arial", 11)
-)
-language_menu.pack(side="right")
 
 
 def atualizar_textos_interface():
