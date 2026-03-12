@@ -6,6 +6,7 @@ from PIL import Image
 from io import BytesIO
 
 from downloader import baixar_video, obter_info_video
+
 ctk.set_default_color_theme("blue")
 ctk.set_appearance_mode("dark")
 
