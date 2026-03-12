@@ -58,4 +58,6 @@ Video Downloader/
 │   └── bin/
 │       └── ffmpeg.exe
 ├── downloads/
+├── dist/
+├── build/app
 └── README.md
