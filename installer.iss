@@ -16,7 +16,7 @@ AppId={{E2A3F7A1-3C7B-4F88-9B11-7D89F4B61A21}}
 AppName=YouTube Downloader
 
 ; Versão do aplicativo
-AppVersion=1.0.0
+AppVersion=1.0.1
 
 ; Nome do autor/publicador
 AppPublisher=Nathan Moura Vieira
@@ -42,7 +42,7 @@ LicenseFile=LICENSE.txt
 OutputDir=installer_output
 
 ; Nome do arquivo final do instalador
-OutputBaseFilename=YouTubeDownloaderSetup_v1.0.0
+OutputBaseFilename=YouTubeDownloaderSetup_v1.0.1
 
 ; Compactação do instalador
 Compression=lzma
