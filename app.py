@@ -6,14 +6,12 @@ from PIL import Image
 from io import BytesIO
 
 from downloader import baixar_video, obter_info_video
-
-
 ctk.set_default_color_theme("blue")
 ctk.set_appearance_mode("dark")
 
 ACCENT = "#22b8cf"
 ACCENT_HOVER = "#1ca3b8"
-GITHUB_URL = "https://github.com/seu-usuario"
+GITHUB_URL = "https://github.com/vieiratechbr"
 
 
 TEXTS = {
@@ -641,7 +639,9 @@ def carregar_video():
 
             app.after(0, update)
 
-        except Exception:
+        except Exception as e:
+            mensagem = str(e)
+
             def update_erro():
                 ultimo_info_video["titulo"] = None
                 ultimo_info_video["canal"] = None
@@ -652,7 +652,7 @@ def carregar_video():
                 titulo_video.configure(text=t("status_invalid_video"))
                 canal_video.configure(text=t("channel_placeholder"))
                 duracao_video.configure(text=t("duration_placeholder"))
-                status_video.configure(text=t("status_check_link"))
+                status_video.configure(text=mensagem[:120])
                 thumbnail_label.configure(image=None, text=t("thumb_load_error"))
                 thumbnail_label.image = None
                 qualidade_video_menu.configure(values=[t("waiting_video")])
@@ -664,7 +664,6 @@ def carregar_video():
             app.after(0, update_erro)
 
     threading.Thread(target=thread, daemon=True).start()
-
 
 def detectar_url(*args):
     url = url_var.get().strip()
@@ -691,6 +690,9 @@ def iniciar_download():
 
     if tipo == "video":
         qualidade = qualidade_video_menu.get().replace("p", "")
+        if qualidade in [t("waiting_video"), t("no_options")]:
+            status_video.configure(text="Carregue um vídeo válido antes de baixar.")
+            return
 
     elif tipo == "audio":
         qualidade = qualidade_audio_menu.get()
@@ -705,29 +707,30 @@ def iniciar_download():
     progress_percent_label.configure(text="0%")
     ultimo_info_video["status_key"] = "status_starting_download"
     status_video.configure(text=t("status_starting_download"))
+    botao.configure(state="disabled")
 
     def thread():
         try:
-            baixar_video(url, tipo, qualidade, rapido, atualizar_progresso)
+            pasta_saida = baixar_video(url, tipo, qualidade, rapido, atualizar_progresso)
 
             def sucesso():
                 ultimo_info_video["status_key"] = "status_download_success"
-                status_video.configure(text=t("status_download_success"))
+                status_video.configure(text=f"{t('status_download_success')} Pasta: {pasta_saida}")
+                botao.configure(state="normal")
 
             app.after(0, sucesso)
-        except Exception:
+
+        except Exception as e:
+            mensagem = str(e)
+
             def erro():
                 ultimo_info_video["status_key"] = "status_download_error"
-                status_video.configure(text=t("status_download_error"))
+                status_video.configure(text=mensagem[:140])
+                botao.configure(state="normal")
 
             app.after(0, erro)
 
     threading.Thread(target=thread, daemon=True).start()
-
-
-def abrir_github():
-    webbrowser.open(GITHUB_URL)
-
 
 def mostrar_popup_saida():
     if nao_mostrar_popup_saida.get():

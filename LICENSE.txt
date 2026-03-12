@@ -1,0 +1,8 @@
+YouTube Downloader
+Desenvolvido por Nathan Moura Vieira
+
+Este software foi desenvolvido para fins educacionais e de portfólio.
+É proibida a redistribuição sem autorização do autor.
+
+GitHub:
+https://github.com/vieiratechbr
